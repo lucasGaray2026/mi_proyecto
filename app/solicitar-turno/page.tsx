@@ -4,7 +4,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 
-const WHATSAPP_NUMBER = "54911XXXXXXXX";
+const WHATSAPP_NUMBER = "5491157413145";
+
+const MODALIDAD_LABEL: Record<string, string> = {
+  presencial: "Presencial (Caseros / Tres de Febrero)",
+  online: "Online",
+  indiferente: "Indiferente",
+};
+
+const TIPO_CONSULTA_LABEL: Record<string, string> = {
+  primera: "Primera consulta",
+  seguimiento: "Consulta de seguimiento",
+};
 
 function buildWhatsAppMessage(data: {
   nombre: string;
@@ -14,17 +25,24 @@ function buildWhatsAppMessage(data: {
   tipoConsulta: string;
   mensaje: string;
 }) {
+  const modalidad =
+    MODALIDAD_LABEL[data.modalidad] ?? data.modalidad;
+  const tipoConsulta =
+    TIPO_CONSULTA_LABEL[data.tipoConsulta] ?? data.tipoConsulta;
+
   const lines = [
-    "Hola, me gustaría solicitar un turno.",
+    "Quiero solicitar un turno.",
     "",
-    `Nombre: ${data.nombre}`,
-    `Email: ${data.email}`,
-    `Teléfono: ${data.telefono}`,
-    `Modalidad preferida: ${data.modalidad}`,
-    `Tipo de consulta: ${data.tipoConsulta}`,
+    "Datos que completé en el formulario:",
+    "",
+    `• Nombre: ${data.nombre}`,
+    `• Email: ${data.email}`,
+    `• Teléfono / WhatsApp: ${data.telefono}`,
+    `• Modalidad preferida: ${modalidad}`,
+    `• Tipo de consulta: ${tipoConsulta}`,
   ];
   if (data.mensaje.trim()) {
-    lines.push("", `Mensaje: ${data.mensaje}`);
+    lines.push("", "• Mensaje adicional:", data.mensaje);
   }
   return lines.join("\n");
 }
@@ -42,7 +60,7 @@ export default function SolicitarTurnoPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = buildWhatsAppMessage(formData);
-    const url = `https://wa.me/${+5491157413145}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
@@ -74,8 +92,8 @@ export default function SolicitarTurnoPage() {
           Solicitar turno
         </h1>
         <p className="text-stone-600 mb-10">
-          Completá el formulario y te redirigiré a WhatsApp para coordinar el
-          turno.
+          Completá el formulario y al enviar se abrirá WhatsApp con el mensaje
+          listo: podés revisarlo y enviarlo cuando quieras.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

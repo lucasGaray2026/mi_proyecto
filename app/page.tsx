@@ -20,7 +20,7 @@ import {
 const CB_JAMSTACK_AGENCY_URL = "https://si-cb-vendes-mejor.com.ar/";
 
 // ============ CONFIGURACIÓN ============
-const WHATSAPP_NUMBER = "54911XXXXXXXX"; // Reemplazar con número real (ej: 5491123456789)
+const WHATSAPP_NUMBER = "5491157413145"; 
 const WHATSAPP_MESSAGE =
   "Hola, me gustaría solicitar un turno para una consulta.";
 

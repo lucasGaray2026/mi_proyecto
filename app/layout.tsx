@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${sourceSans.variable}`}
     >
       <body className="font-sans bg-sand-50 text-stone-700 min-h-screen">
